@@ -172,6 +172,7 @@ li span {
 
 .clear-btn {
   background-color: #e74c3c;
+  color: #fff;
   font-size: 1.6rem;
   padding: 1rem 2.2rem;
   border-radius: 0.3rem;
@@ -179,6 +180,7 @@ li span {
   -moz-border-radius: 0.3rem;
   -ms-border-radius: 0.3rem;
   -o-border-radius: 0.3rem;
+  cursor: pointer;
 }
 
 .clear-btn:hover {
