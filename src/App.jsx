@@ -9,20 +9,34 @@ function App() {
   const [task, setTask] = useState([]);
   
   const handleFormChange = (inputValue) =>{
-    if(!inputValue) return;
+    const {id, content, checked} = inputValue;
+    if(!content) return;
+    const ifTodoContentMatched = task.find((curTask) => curTask.content === content);
+    if(ifTodoContentMatched) return;
 
-    if(task.includes(inputValue)){
-      return;
-    }
-
-    setTask((prev) => [...prev, inputValue]);
+    setTask((prev) => [...prev, {id: id, content: content, checked: checked}]);
   }
 
 
      // handling the delete button
      const handleDelete = (value)=>{
-      const updatedTask = task.filter((curTask)=> curTask!== value);
+      const updatedTask = task.filter((curTask)=> curTask.content !== value);
       setTask(updatedTask);          
+     }
+
+     //handling the checked button
+     const handleChecked = (value)=>{
+      const updatedCheck = task.map((curTask)=>{
+        if(curTask.content===value){
+          return {
+            ...curTask, checked: !curTask.checked
+          };
+        }
+        else{
+          return curTask;
+        }
+      })
+      setTask(updatedCheck);
      }
 
      // handling clear all button
@@ -39,9 +53,9 @@ function App() {
       <section className='myUnordList'>
         <ul>
           {
-            task.map((curTask, index) => {
+            task.map((curTask) => {
               return (
-                <TodoList key={index} data={curTask} onHandleDeleteTodo = {handleDelete}/>
+                <TodoList key={curTask.id} data={curTask.content} checked = {curTask.checked}  onHandleDeleteTodo = {handleDelete} onHandleCheckedTodo = {handleChecked}/>
               );
             })
           }
